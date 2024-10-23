@@ -1,0 +1,7 @@
+@startuml
+class CharacterControllerMove {
+    + Move(direction:Vector3) : void
+}
+MonoBehaviour <|-- CharacterControllerMove
+IMovement <|-- CharacterControllerMove
+@enduml

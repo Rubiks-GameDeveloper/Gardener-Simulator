@@ -1,0 +1,5 @@
+@startuml
+interface IMovement {
+    Move() : void
+}
+@enduml

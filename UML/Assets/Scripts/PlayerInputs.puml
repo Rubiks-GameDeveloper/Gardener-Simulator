@@ -1,0 +1,7 @@
+@startuml
+class PlayerInputs {
+}
+MonoBehaviour <|-- PlayerInputs
+PlayerInputs --> "MoveInput" Vector2
+PlayerInputs --> "CameraInput" Camera
+@enduml

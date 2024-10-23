@@ -1,0 +1,8 @@
+@startuml
+class ShopUIPresenter {
+    + ShopUIPresenter(model:Model, view:View)
+    + SelectItem(item:Item) : void
+    + UpdateItemsUI() : void
+}
+Presenter <|-- ShopUIPresenter
+@enduml

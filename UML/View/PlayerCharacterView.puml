@@ -1,0 +1,6 @@
+@startuml
+class PlayerCharacterView {
+    + <<override>> Init(presenter:Presenter) : void
+}
+View <|-- PlayerCharacterView
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+class PlantBuildFocus {
+    + <<override>> GetFocusPlacePos(rayTouchPos:Vector3) : Vector3
+}
+FocusScript <|-- PlantBuildFocus
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class UIPlantItem {
+    + GetSelectButton() : Button
+    + SetStartData(item:Item) : void
+}
+MonoBehaviour <|-- UIPlantItem
+@enduml

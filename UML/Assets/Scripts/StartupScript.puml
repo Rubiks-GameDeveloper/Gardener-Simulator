@@ -1,0 +1,5 @@
+@startuml
+class StartupScript {
+}
+MonoBehaviour <|-- StartupScript
+@enduml

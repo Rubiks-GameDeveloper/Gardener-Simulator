@@ -1,0 +1,8 @@
+@startuml
+class ShopUIVIew {
+    + <<override>> Init(presenter:Presenter) : void
+    + InitializeShopItems(items:List<Item>) : void
+    + UpdateShopList() : void
+}
+View <|-- ShopUIVIew
+@enduml

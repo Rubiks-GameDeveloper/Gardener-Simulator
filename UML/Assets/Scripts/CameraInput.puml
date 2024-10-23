@@ -1,0 +1,11 @@
+@startuml
+class CameraInput {
+    + OnPointerEnter(eventData:PointerEventData) : void
+    + OnPointerExit(eventData:PointerEventData) : void
+    + OnPointerMove(eventData:PointerEventData) : void
+}
+MonoBehaviour <|-- CameraInput
+IPointerEnterHandler <|-- CameraInput
+IPointerExitHandler <|-- CameraInput
+IPointerMoveHandler <|-- CameraInput
+@enduml

@@ -1,0 +1,10 @@
+@startuml
+class ShopUIModel {
+    +  <<event>> plantsListChange : Action 
+    + ShopUIModel(view:View, plants:List<Item>)
+}
+class "List`1"<T> {
+}
+Model <|-- ShopUIModel
+ShopUIModel --> "plants<Item>" "List`1"
+@enduml

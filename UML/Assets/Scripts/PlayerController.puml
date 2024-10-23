@@ -1,0 +1,7 @@
+@startuml
+class PlayerController {
+    + RotatePlayer(delta:Vector2) : void
+}
+MonoBehaviour <|-- PlayerController
+IMovement <|-- PlayerController
+@enduml

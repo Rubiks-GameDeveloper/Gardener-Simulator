@@ -1,0 +1,7 @@
+@startuml
+class Tester {
+    Start() : void
+    Update() : void
+}
+MonoBehaviour <|-- Tester
+@enduml

@@ -1,0 +1,13 @@
+@startuml
+class PlantItem {
+    + GetSeason() : Season
+    + GetWorldPrefab() : GameObject
+}
+enum Season {
+    Winter,
+    Spring,
+    Summer,
+    Autumn,
+}
+Item <|-- PlantItem
+@enduml

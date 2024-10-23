@@ -1,0 +1,5 @@
+@startuml
+class BuildableObject {
+}
+MonoBehaviour <|-- BuildableObject
+@enduml

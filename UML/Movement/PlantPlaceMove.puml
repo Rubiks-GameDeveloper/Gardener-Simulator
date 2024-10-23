@@ -1,0 +1,7 @@
+@startuml
+class PlantPlaceMove {
+    Start() : void
+    Update() : void
+}
+MonoBehaviour <|-- PlantPlaceMove
+@enduml

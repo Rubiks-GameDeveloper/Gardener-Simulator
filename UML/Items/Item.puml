@@ -1,0 +1,7 @@
+@startuml
+abstract class Item {
+    + GetId() : int
+    + GetDescription() : string
+}
+ScriptableObject <|-- Item
+@enduml

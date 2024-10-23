@@ -1,0 +1,7 @@
+@startuml
+class GravityMove {
+    Update() : void
+    + Move() : void
+}
+IMovement <|-- GravityMove
+@enduml

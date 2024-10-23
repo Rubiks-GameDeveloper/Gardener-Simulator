@@ -1,0 +1,124 @@
+@startuml
+class CameraInput {
+    + OnPointerEnter(eventData:PointerEventData) : void
+    + OnPointerExit(eventData:PointerEventData) : void
+    + OnPointerMove(eventData:PointerEventData) : void
+}
+MonoBehaviour <|-- CameraInput
+IPointerEnterHandler <|-- CameraInput
+IPointerExitHandler <|-- CameraInput
+IPointerMoveHandler <|-- CameraInput
+class PlayerUIInputs {
+    + ShopVisibilityChange() : void
+}
+MonoBehaviour <|-- PlayerUIInputs
+class PlayerController {
+    + RotatePlayer(delta:Vector2) : void
+}
+MonoBehaviour <|-- PlayerController
+IMovement <|-- PlayerController
+class PlayerInputs {
+}
+MonoBehaviour <|-- PlayerInputs
+PlayerInputs --> "MoveInput" Vector2
+PlayerInputs --> "CameraInput" Camera
+class GameObjectPlacer {
+}
+MonoBehaviour <|-- GameObjectPlacer
+class PlantBuildFocus {
+    + <<override>> GetFocusPlacePos(rayTouchPos:Vector3) : Vector3
+}
+FocusScript <|-- PlantBuildFocus
+abstract class FocusScript {
+    + GetFocusRange() : float
+    + {abstract} GetFocusPlacePos(rayTouchPos:Vector3) : Vector3
+}
+MonoBehaviour <|-- FocusScript
+class StartupScript {
+}
+MonoBehaviour <|-- StartupScript
+class BuildableObject {
+}
+MonoBehaviour <|-- BuildableObject
+class ShopUIModel {
+    +  <<event>> plantsListChange : Action 
+    + ShopUIModel(view:View, plants:List<Item>)
+}
+class "List`1"<T> {
+}
+Model <|-- ShopUIModel
+ShopUIModel --> "plants<Item>" "List`1"
+abstract class Model {
+    + Model(view:View)
+}
+class ShopUIVIew {
+    + <<override>> Init(presenter:Presenter) : void
+    + InitializeShopItems(items:List<Item>) : void
+    + UpdateShopList() : void
+}
+View <|-- ShopUIVIew
+class PlayerCharacterView {
+    + <<override>> Init(presenter:Presenter) : void
+}
+View <|-- PlayerCharacterView
+abstract class View {
+    + {abstract} Init(presenter:Presenter) : void
+}
+MonoBehaviour <|-- View
+class PlantPlaceMove {
+    Start() : void
+    Update() : void
+}
+MonoBehaviour <|-- PlantPlaceMove
+interface IMovement {
+    Move() : void
+}
+class CharacterControllerMove {
+    + Move(direction:Vector3) : void
+}
+MonoBehaviour <|-- CharacterControllerMove
+IMovement <|-- CharacterControllerMove
+class GravityMove {
+    Update() : void
+    + Move() : void
+}
+IMovement <|-- GravityMove
+class UIPlantItem {
+    + GetSelectButton() : Button
+    + SetStartData(item:Item) : void
+}
+MonoBehaviour <|-- UIPlantItem
+class PlantItem {
+    + GetSeason() : Season
+    + GetWorldPrefab() : GameObject
+}
+enum Season {
+    Winter,
+    Spring,
+    Summer,
+    Autumn,
+}
+Item <|-- PlantItem
+abstract class Item {
+    + GetId() : int
+    + GetDescription() : string
+}
+ScriptableObject <|-- Item
+class ShopUIPresenter {
+    + ShopUIPresenter(model:Model, view:View)
+    + SelectItem(item:Item) : void
+    + UpdateItemsUI() : void
+}
+Presenter <|-- ShopUIPresenter
+abstract class Presenter {
+    + Presenter(model:Model, view:View)
+}
+class LeavesTestGenerator {
+}
+MonoBehaviour <|-- LeavesTestGenerator
+class Tester {
+    Start() : void
+    Update() : void
+}
+MonoBehaviour <|-- Tester
+@enduml
