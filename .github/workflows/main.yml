@@ -2,7 +2,7 @@
 on:
   push:
     branches:
-      - master
+      - main
   workflow_dispatch:
 
 jobs:
@@ -48,7 +48,7 @@ jobs:
         id: get_file_names
       - name: Generate SVG Diagrams
         if: ${{ steps.check_for_code.outputs.CODE_EXISTS == 'true' }}
-        uses: danielyaa5/puml-for-markdown@master
+        uses: danielyaa5/puml-for-markdown@main
         with:
           args: -v -tsvg ${{ steps.get_file_names.outputs.UML_FILES }}
 
