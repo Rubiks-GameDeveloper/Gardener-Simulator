@@ -1,13 +1,9 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 
 public class CameraInput : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
 {
-    private InputAction _dragAction;
-
     private Vector2 _delta;
     private PlayerController _playerController;
 

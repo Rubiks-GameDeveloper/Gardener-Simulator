@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class StartupScript : MonoBehaviour
 {
-    [SerializeField] private PlayerCharacterView characterView;
-    [SerializeField] private Transform characterParentTransform;
+    [SerializeField] private ShopUIVIew characterView;
+    [SerializeField] private List<Item> allPlants;
     private void Awake()
     {
-        View prefab = characterView;
-
-        var view = Instantiate(prefab, transform);
-        var model = new PlayerCharacterModel(view, characterParentTransform);
-        Presenter presenter = new PlayerCharacterPresenter(model, FindObjectOfType<CharacterControllerMove>());
+        var model = new ShopUIModel(characterView, allPlants);
+        Presenter presenter = new ShopUIPresenter(model, characterView);
         
-        view.Init(presenter);
+        characterView.Init(presenter);
     }
 }
