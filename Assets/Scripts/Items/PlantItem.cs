@@ -1,21 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlantItem", menuName = "ItemData/PlantItem")]
-public class PlantItem : Item
+namespace Items
 {
-    [SerializeField] private Season season;
-    [SerializeField] private GameObject plantWorldPrefab;
+    [CreateAssetMenu(fileName = "PlantItem", menuName = "ItemData/PlantItem")]
+    public class PlantItem : BuildItem
+    {
+        [SerializeField] private Season season;
 
-    public Season GetSeason() => season;
-    public GameObject GetWorldPrefab() => plantWorldPrefab;
-}
+        public Season GetSeason() => season;
+    }
 
-public enum Season
-{
-    Winter,
-    Spring,
-    Summer,
-    Autumn
+    public enum Season
+    {
+        Winter,
+        Spring,
+        Summer,
+        Autumn
+    }
 }

@@ -20,6 +20,7 @@ public class ShopUIVIew : View
     public override void Init(Presenter presenter)
     {
         _shopUIPresenter = (ShopUIPresenter)presenter;
+        
     }
     public void InitializeShopItems(List<Item> items)
     {

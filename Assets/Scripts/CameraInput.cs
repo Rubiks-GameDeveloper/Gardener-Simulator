@@ -5,12 +5,9 @@ using UnityEngine.EventSystems;
 public class CameraInput : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
 {
     private Vector2 _delta;
-    private PlayerController _playerController;
 
-    private void Start()
-    {
-        _playerController = FindObjectOfType<PlayerController>();
-    }
+    public Action<Vector2> OnCameraPositionChange;
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         _delta = eventData.position;
@@ -22,7 +19,11 @@ public class CameraInput : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerMove(PointerEventData eventData)
     {
         _delta -= eventData.position;
-        _playerController.RotatePlayer(-_delta);
+        
+        OnCameraPositionChange?.Invoke(-_delta);
+        
         _delta = eventData.position;
     }
+    
+    
 }

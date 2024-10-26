@@ -6,7 +6,7 @@ public class ShopUIPresenter : Presenter
 {
     private ShopUIVIew _shopUIView;
     private ShopUIModel _shopUIModel;
-
+    private GameObjectPlacer _objectBuilder;
     public ShopUIPresenter(Model model, View view) : base(model, view)
     {
         _shopUIView = (ShopUIVIew)view;
@@ -14,6 +14,9 @@ public class ShopUIPresenter : Presenter
 
         _shopUIView.InitializeShopItems(_shopUIModel.plants);
         _shopUIModel.plantsListChange += UpdateItemsUI;
+        _objectBuilder = _shopUIModel.GameObjectPlacer;
+        
+        
     }
 
     public void SelectItem(Item item)

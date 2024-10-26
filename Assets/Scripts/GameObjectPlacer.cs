@@ -2,47 +2,71 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Items;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class GameObjectPlacer : MonoBehaviour
 {
     private Camera _mainCam;
-    [SerializeField] private GameObject testObj;
+    [SerializeField] private GameObject buildObject;
 
     [Range(3, 20)] [SerializeField] private float placeDistance;
 
     private void Start()
     {
         _mainCam = Camera.main;
-        testObj.transform.SetParent(transform.parent);
     }
 
-    private void Update()
+    public (RaycastHit hit, Ray ray) GetCameraRaycastInfo()
     {
-        RaycastHit res = new RaycastHit();
         var ray = _mainCam.ScreenPointToRay(_mainCam.pixelRect.center);
-        Physics.Raycast(ray, out res, placeDistance);
+        Physics.Raycast(ray, out var hit, placeDistance);
         
         Debug.DrawRay(ray.origin, ray.direction * placeDistance, Color.red);
         
-        var col = testObj.GetComponent<Collider>();
-        if (res.transform == null)
+        return (hit, ray);
+    }
+
+    private bool IsBuildItemSet()
+    {
+        return buildObject != null;
+    }
+    public void SetBuildItem(Item item)
+    {
+        buildObject = ((BuildItem)item).GetWorldBuildPrefab();
+    }
+    public void ClearBuildItem()
+    {
+        buildObject = null;
+    }
+
+    public void CalculateBuildItemPos()
+    {
+        if (!IsBuildItemSet()) return;
+
+        var rayInfo = GetCameraRaycastInfo();
+
+        var col = buildObject.GetComponent<Collider>();
+        if (rayInfo.hit.transform == null)
         {
-            testObj.transform.position = ray.GetPoint(placeDistance) + new Vector3(0, col.bounds.extents.y, 0);
-            testObj.GetComponent<Renderer>().material.DisableKeyword("_CANBUILD");
+            buildObject.transform.position = rayInfo.ray.GetPoint(placeDistance) + new Vector3(0, col.bounds.extents.y, 0);
+            buildObject.GetComponent<Renderer>().material.DisableKeyword("_CANBUILD");
             return;
         }
+
         FocusScript test;
-        if (res.transform.TryGetComponent(out test))
+        if (rayInfo.hit.transform.TryGetComponent(out test))
         {
-            testObj.transform.position = test.GetFocusPlacePos(res.point) + new Vector3(0, col.bounds.extents.y, 0);
-            testObj.transform.rotation = Quaternion.Euler(0, 0, 0);
+            buildObject.transform.position =
+                test.GetFocusPlacePos(rayInfo.hit.point) + new Vector3(0, col.bounds.extents.y, 0);
+            buildObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else
         {
-            testObj.transform.position = res.point + new Vector3(0, col.bounds.extents.y, 0);
+            buildObject.transform.position = rayInfo.hit.point + new Vector3(0, col.bounds.extents.y, 0);
         }
-        testObj.GetComponent<Renderer>().material.EnableKeyword("_CANBUILD");
+
+        buildObject.GetComponent<Renderer>().material.EnableKeyword("_CANBUILD");
     }
 }

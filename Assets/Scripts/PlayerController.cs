@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour, IMovement
@@ -9,11 +10,19 @@ public class PlayerController : MonoBehaviour, IMovement
     [SerializeField] private float speed = 2;
 
     private PlayerInputs _inputPlayer;
+    private CameraInput _cameraInput;
     private float _camXRotation;
     private void Awake()
     {
         _inputPlayer = FindObjectOfType<PlayerInputs>();
+        _cameraInput = FindObjectOfType<CameraInput>();
     }
+
+    private void OnEnable()
+    {
+        _cameraInput.OnCameraPositionChange += RotatePlayer;
+    }
+
     private Vector3 CalculateMoveDir()
     {
         var direction = parent.forward * _inputPlayer.MoveInput.y + parent.right * _inputPlayer.MoveInput.x;
@@ -44,5 +53,11 @@ public class PlayerController : MonoBehaviour, IMovement
 
         _inputPlayer.CameraInput.transform.localRotation = Quaternion.Euler(_camXRotation,0,0);
         parent.Rotate(Vector3.up * mouseX);
+    }
+
+    private void OnDisable()
+    {
+        print(2);
+        _cameraInput.OnCameraPositionChange -= RotatePlayer;
     }
 }
